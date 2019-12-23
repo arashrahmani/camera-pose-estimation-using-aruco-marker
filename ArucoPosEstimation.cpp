@@ -11,6 +11,7 @@
 #include <math.h>
 #include <opencv4/opencv2/core.hpp>
 
+#define a 0.1
 using namespace cv;
 using namespace std;
 
@@ -18,8 +19,11 @@ int main(){
   CameraParams LogitechC922;
   
   // 1080p is resolution for LogitechC922 that size of image plane is 1920*1080(pixel)
-  LogitechC922.sX = 0.0000025;   // << sX(m) == width of sensor / number of pixels in horizontal axis >> that in logitechC922 is: 4.8(mm)/ 1920(pixel)
-  LogitechC922.sY = 0.0000033;   // << sY(m) == height of sensor / number of pixels in vertical axis >> that in logitechC922 is: 3.5(mm)/ 1080(pixel)
+  
+  // sX(m) = sensor windth / number of pixels in horizontal axis (this case: 1920)
+  // sY(m) = height of sensor / number of pixels in vertical axis (this case: 1080)
+  LogitechC922.sX = 0.0000025;  
+  LogitechC922.sY = 0.0000033;   
   
   LogitechC922.fX = 619.4993;
   LogitechC922.fY = 620.8682;
@@ -33,7 +37,7 @@ int main(){
   LogitechC922.p1 = -0.0007;
   LogitechC922.p2 = -0.0064;
   
-  //    crating and filling cameraMatrix such that
+  //    creating and filling cameraMatrix such that
   //                                  {LogitechC922.fX ,        0      , LogitechC922.cX}
   //             cameraMatrix =       {        0       ,LogitechC922.fY, LogitechC922.cY}
   //                                  {        0       ,        0      ,        1       }
@@ -61,16 +65,12 @@ int main(){
   // assigning a dictionary for desired arucos
   cv::Ptr <cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_6X6_250);
   
+  // saving the square size (meter)
   float a = 0.1;
 
-  double rA[3] = {0,0,0};
-  double rB[3] = {0,0,0};
-  double rC[3] = {0,0,0};
-  double rD[3] = {0,0,0};
-  
   Mat frame;
   
-  // creating an object from VideoCapture and open the camera with camera index "2"
+  // creating an object from cv::VideoCapture that opens /dev/video2
   VideoCapture cap(2);
     while(1){
       cap>>frame;
@@ -85,12 +85,11 @@ int main(){
       cv::aruco::detectMarkers(frame,dictionary,corners,IDS);
       
       // printing IDs of detected aucoes
-      for(int i=0;i<IDS.size();i++){
+      for(int i = 0;i < IDS.size();i ++){
         cout<<"your IDs are : "<<IDS[i]<<endl;
       }
       
-      
-      vector<square > arucoes(IDS.size());
+      vector<square >arucoes(IDS.size());
       for(int i  = 0;i < IDS.size();i ++){
         for(int j = 0;j < 4;j ++){
           
@@ -101,34 +100,20 @@ int main(){
           arucoes[i].imageCorners[j].x = (corners[i][j].x * LogitechC922.sX) - LogitechC922.cX;
           arucoes[i].imageCorners[j].y = (corners[i][j].y * LogitechC922.sY) - LogitechC922.cY;
           
-          // adding the k of corner
+          // filling the k for corner j such that k = u/fX
           arucoes[i].kc[j][0] = arucoes[i].imageCorners[j].x / LogitechC922.fX;
           
-          // adding the c of corner
+          // filling the c for corner j such that c = v/fY
           arucoes[i].kc[j][1] = arucoes[i].imageCorners[j].y / LogitechC922.fY;
         }
 
-        // A,B,C,D are vertices of arucoes and are clockwise
-             cout<<"Number of Aruco is: "<<i<<endl;
-             cout<<"ID of Aruco is: "<<IDS[i]<<endl;
-          cout<<"uA = "<<arucoes[i].imageCorners[0].x<<" "<<"vA = "<<arucoes[i].imageCorners[0].y<<endl;
-          cout<<"uB = "<<arucoes[i].imageCorners[1].x<<" "<<"vB = "<<arucoes[i].imageCorners[1].y<<endl;
-          cout<<"uC = "<<arucoes[i].imageCorners[2].x<<" "<<"vC = "<<arucoes[i].imageCorners[2].y<<endl;
-          cout<<"uD = "<<arucoes[i].imageCorners[3].x<<" "<<"vD = "<<arucoes[i].imageCorners[3].y<<endl;
-             
-             
-             
-             
-          
-          //////////////////////////////////////////////////////
-//           kA = uA / LogitechC922.fX;
-//           kB = uB / LogitechC922.fX;
-//           kC = uC / LogitechC922.fX;
-//           kD = uD / LogitechC922.fX;
-//           cA = vA / LogitechC922.fY;
-//           cB = vB / LogitechC922.fY;
-//           cC = vC / LogitechC922.fY;
-//           cD = vD / LogitechC922.fY;
+        // A,B,C,D are vertices of arucoes and are clockwise starting from top-left point
+        cout<<"ID of Aruco is: "<<IDS[i]<<endl;
+        cout<<"uA = "<<arucoes[i].imageCorners[0].x<<" "<<"vA = "<<arucoes[i].imageCorners[0].y<<endl;
+        cout<<"uB = "<<arucoes[i].imageCorners[1].x<<" "<<"vB = "<<arucoes[i].imageCorners[1].y<<endl;
+        cout<<"uC = "<<arucoes[i].imageCorners[2].x<<" "<<"vC = "<<arucoes[i].imageCorners[2].y<<endl;
+        cout<<"uD = "<<arucoes[i].imageCorners[3].x<<" "<<"vD = "<<arucoes[i].imageCorners[3].y<<endl;
+        
           //     creating and filling Q matrix such that
 // // // // // //           double Q[3][3] =
 // // // // // //           {
@@ -162,7 +147,7 @@ int main(){
             for(int j=0;j<3;j++){
               L[i] += Qinv.at<double>(i,j)*L0[j];
             }
-          }
+          arucoes}
           double M = pow(arucoes[i].kc[1][0]*L[0]-arucoes[i].kc[0][0]*L[2], 2)+pow(arucoes[i].kc[1][1]*L[0]-arucoes[i].kc[0][1]*L[2],2)+pow(L[0]-L[2],2);
           // rC[2] = a/sqrt(M);
           // rA[2] = L[2]*rC[2];
@@ -177,7 +162,7 @@ int main(){
             arucoes[i].realCorners[cornerNum].x = arucoes[i].kc[cornerNum][0] * arucoes[i].realCorners[cornerNum].z;
             arucoes[i].realCorners[cornerNum].y = arucoes[i].kc[cornerNum][1] * arucoes[i].realCorners[cornerNum].z;
           }
-          // arucoes[i].realCorners[0].x = arucoes[i].kc[0][0] * arucoes[i].realCorners[0].z;
+          // arucoes[i].realCorners[0].x = [i].kc[0][0] * arucoes[i].realCorners[0].z;
           // arucoes[i].realCorners[0].y = arucoes[i].kc[0][1] * arucoes[i].realCorners[0].z;
           // arucoes[i].realCorners[1].x = arucoes[i].kc[1][0] * arucoes[i].realCorners[1].z;
           // arucoes[i].realCorners[1].y = arucoes[i].kc[1][1] * arucoes[i].realCorners[1].z;
@@ -204,7 +189,8 @@ int main(){
         // putText(frame,co.str(),center,0,1,Scalar(0,0,150),4);
         circle(frame,center,2,Scalar(0,255,0),3);
       }
-      imshow("detected arucoes",frame);
+      cout<<IDS.size()<<" arucoes detected\n";
+      imshow("",frame);
       cout<<"Fx is:       "<<LogitechC922.fX<<endl;
       cout<<"Fy is:       "<<LogitechC922.fY<<endl;   
       cv::waitKey(100); 
