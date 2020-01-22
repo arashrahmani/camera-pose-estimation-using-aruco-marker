@@ -66,7 +66,7 @@ int main(){
   cv::Ptr <cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_6X6_250);
   
   // saving the square size (meter)
-  float a = 0.1;
+//   float a = 0.1;
 
   Mat frame;
   
@@ -74,6 +74,9 @@ int main(){
   VideoCapture cap(2);
     while(1){
       cap>>frame;
+//      cap.set(3,1920);
+//      cap.set(4,1080);
+
       Mat tempMat = frame.clone();
       
       // undistorting the image using known distortion coefficiets and intrinsic camera matrix
@@ -147,7 +150,7 @@ int main(){
             for(int j=0;j<3;j++){
               L[i] += Qinv.at<double>(i,j)*L0[j];
             }
-          arucoes}
+          }
           double M = pow(arucoes[i].kc[1][0]*L[0]-arucoes[i].kc[0][0]*L[2], 2)+pow(arucoes[i].kc[1][1]*L[0]-arucoes[i].kc[0][1]*L[2],2)+pow(L[0]-L[2],2);
           // rC[2] = a/sqrt(M);
           // rA[2] = L[2]*rC[2];
