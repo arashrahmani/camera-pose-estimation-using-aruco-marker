@@ -9,6 +9,6 @@ for using this program\
     4. now you can compile the project using provided Makefile  
 
   Compilation :\
-    in project directory use this command -> " make ArucoPosEstimation "\
+    in project directory use this command -> " make ArucoPosEstimation "
     
 attention please : this code is written for LogitechC920 & LogitechC922 but in latest versions i'll try to generalize it.
