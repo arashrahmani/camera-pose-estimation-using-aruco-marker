@@ -13,14 +13,14 @@ according to the fig(1),which shows a light ray that emits from an arbitrary poi
 we sorted our vertices clockwise starting from top left and named them A-D as shown in fig(2).
 
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/pinhole_camera_model.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/pinhole_camera_model.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
     fig(1)
 </p>
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig2.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig2.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -38,7 +38,7 @@ _ First consider the position of our square in coordinate system {1}.
 
 _ Consider the point "A" from the square.
 <p align="center">
-    <img width="30%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig3.jpg" style="max-width:30%;">
+    <img width="30%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig3.jpg" style="max-width:30%;">
     </a>
 </p>
 <p align="center">
@@ -55,7 +55,7 @@ _ Now consider the point "D".
     answer: Point "D" is as far away from point "A" as "a" is. but "AB" is perpendicular to "AD".
     so the points that "D" can be placed there, is a circle that "AB" is perpendicular to it's plane.(fig(4))
 <p align="center">
-    <img width="50%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig4.jpg" style="max-width:50%;">
+    <img width="50%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig4.jpg" style="max-width:50%;">
     </a>
 </p>
 <p align="center">
@@ -64,7 +64,7 @@ _ Now consider the point "D".
 
 We create the new coordinate system {2} centered at point "A" and in the same direction of the coordinate system {1}(camera coordinate system). the new coordinate system is shown in fig(5).
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig5.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig5.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -74,7 +74,7 @@ We saw that with a given point "A" at some arbitrary coordinate,"B" lies on a sp
 Now if we want to evaluate the forth point ,"C" has a exact coordinate in the space.
 For define the coordinate of point "C" ,we define the coordinate system{3} as shown in fig(6).
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig6.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig6.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -82,7 +82,7 @@ For define the coordinate of point "C" ,we define the coordinate system{3} as sh
 </p>
 The unit vectors(ex,ey,ez) are defined as follows:
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig7.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig7.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -91,7 +91,7 @@ The unit vectors(ex,ey,ez) are defined as follows:
 We have coordinates of points in coordinate system{3}(fig6), we want to get the point coordinates in the coordinate system{2}.
 The coordinate system{3} is rotated with respect to the coordinate system{2} with rotation matrix R.
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/myreadme/blob/master/fig8.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig8.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -99,7 +99,7 @@ The coordinate system{3} is rotated with respect to the coordinate system{2} wit
 </p>
 Now that the coordinates of all the 4 points have been found in coordinate system {3} (fig6),using the rotation matrix shown above, we can get the coordinates of the 4 points in coordinate system{2}(fig9).
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig9.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig9.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -107,7 +107,7 @@ Now that the coordinates of all the 4 points have been found in coordinate syste
 </p>
 So the coordinates of points have been found in coordinate system {2},now using equations in fig(5), just using a single translation we can get the coordinates of points in coordinate system{1}.(shown in image below)
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig10.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig10.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -117,7 +117,7 @@ So the coordinates of points have been found in coordinate system {2},now using 
 
 using * and ** equatinos, we have the equations shown in fig(11).
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig11.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig11.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
@@ -128,7 +128,7 @@ So far we have written three unknowns in terms of "Zc"(fig(11)), and the only un
 Usnig the equation for distance between points "A" and "B" we will get the answer of "Zc".(fig(12))
 And because we set the positive direction of the Z axis in front of the camera, the positive answers are acceptable.(objects observed by a camera exist on the front of it)
 <p align="center">
-    <img width="100%" src="https://github.com/arashrahmani/getting-the-position-of-a-detected-square-in-3D-world-with-single-camera/blob/master/images/fig12.jpg" style="max-width:100%;">
+    <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig12.jpg" style="max-width:100%;">
     </a>
 </p>
 <p align="center">
