@@ -1,4 +1,4 @@
-# getting-the-position-of-a-detected-square-in-3D-world-with-single-camera
+# design and implementation of a camera pose estimation system using square marker
 ## Introduction
 Determining the position and orientation of a camera given its intrinsic parameters and a set of n correspondences between 3D points and their 2D projections is known as the Perspective-n-Point (PnP) problem .
 In this project we provide an efﬁcient and robust solution to the P4P problem for estimating the 3D pose of a camera relative to a known sized square .
