@@ -146,15 +146,17 @@ solved by my dear friend Alireza Karimi (Mechatronics Research Laboratory)
 
 a good day in cafe Toosi : Alireza Karimi and Arash Rahmani 2019-11-08
 ## 🛠 Prerequisites :
-    1. first of all you should calibrate the intrinsic camera parameters with any tool that you have (like Matlab calibration tool , opencv 3DCalib , etc.)
-    2. then you should put the parameters of camera in ArucoPosEstimation.cpp into an object from cameraConfig 
-    3. next step is importing the Aruco length (meters) in "a" variable 
-    4. now you can compile the project using provided Makefile  
+1. **Calibrate your camera's intrinsic parameters** using any standard tool (e.g., MATLAB Camera Calibration Toolbox, OpenCV's `calib3d` module, etc.).
 
-  Compilation :
-    in project directory use this command -> " make ArucoPosEstimation "
-    
-attention please : this code is written for LogitechC920 & LogitechC922 but in latest versions i'll try to generalize it.
+2. **Edit `ArucoPosEstimation.cpp`** to insert your camera’s intrinsic parameters, as well as the `sx` and `sy` scaling factors. Brief explanations are provided in the code comments.
+
+3. **Set the ArUco marker's physical length (in meters)** by assigning it to the variable `a`.
+
+4. **Compile the project** using the provided Makefile by running the following command:
+
+    ```bash
+    make ArucoPosEstimation
+    ```    
 
 ## 🙏 Enjoyed this project?
 If this repository helped you or saved you time, please consider ⭐ starring it — it motivates us to keep improving it!
