@@ -1,4 +1,7 @@
-# design and implementation of a camera pose estimation system using square marker
+# 🎯 Camera Pose Estimation Using a Square Marker
+# ⭐ Please consider giving a star if you find this useful!
+![GitHub stars](https://img.shields.io/github/stars/arashrahmani/camera-pose-estimation-using-aruco-marker?style=social)
+
 ## Introduction
 Determining the position and orientation of a camera given its intrinsic parameters and a set of n correspondences between 3D points and their 2D projections is known as the Perspective-n-Point (PnP) problem .
 In this project we provide an efﬁcient and robust solution to the P4P problem for estimating the 3D pose of a camera relative to a known sized square .
@@ -135,15 +138,14 @@ And because we set the positive direction of the Z axis in front of the camera, 
     fig(12)
 </p>
 
- !!! Finish !!!
-Thank you for reading. I hope you enjoyed it. :)
+## 🙏 Acknowledgements
 
 <a href="https://github.com/alirezakarimi92"><img src="https://avatars.githubusercontent.com/u/79650769?v=4" width="100;" alt="Alireza Karimi"/><br /><sub><b>.:: Alireza Karimi ::.</b></sub></a>
 
 solved by my dear friend Alireza Karimi (Mechatronics Research Laboratory)
 
 a good day in cafe Toosi : Alireza Karimi and Arash Rahmani 2019-11-08
-## Prerequisites :
+## 🛠 Prerequisites :
     1. first of all you should calibrate the intrinsic camera parameters with any tool that you have (like Matlab calibration tool , opencv 3DCalib , etc.)
     2. then you should put the parameters of camera in ArucoPosEstimation.cpp into an object from cameraConfig 
     3. next step is importing the Aruco length (meters) in "a" variable 
@@ -153,3 +155,7 @@ a good day in cafe Toosi : Alireza Karimi and Arash Rahmani 2019-11-08
     in project directory use this command -> " make ArucoPosEstimation "
     
 attention please : this code is written for LogitechC920 & LogitechC922 but in latest versions i'll try to generalize it.
+
+## 🙏 Enjoyed this project?
+If this repository helped you or saved you time, please consider ⭐ starring it — it motivates us to keep improving it!
+
