@@ -5,15 +5,32 @@
 ## Introduction
 Determining the position and orientation of a camera given its intrinsic parameters and a set of n correspondences between 3D points and their 2D projections is known as the Perspective-n-Point (PnP) problem .
 In this project we provide an efﬁcient and robust solution to the P4P problem for estimating the 3D pose of a camera relative to a known sized square .
+## 🛠 Prerequisites :
+1. **Calibrate your camera's intrinsic parameters** using any standard tool (e.g., MATLAB Camera Calibration Toolbox, OpenCV's `calib3d` module, etc.).
+
+2. **Edit `ArucoPosEstimation.cpp`** to insert your camera’s intrinsic parameters, as well as the `sx` and `sy` scaling factors. Brief explanations are provided in the code comments.
+
+3. **Set the ArUco marker's physical length (in meters)** by assigning it to the variable `a`.
+
+4. **Compile the project** using the provided Makefile by running the following command:
+
+    ```bash
+    make ArucoPosEstimation
+    ```
+5. **Run**:
+
+    ```bash
+    ./ArucoPosEstimation
+    ```
 
 ## Problem formulation
-another form to define our problem(assuming that the intrinsic parameters are calculated): how to get the 3D pose of 4 square vertices relative to a single camera.
+Another form to define our problem(assuming that the intrinsic parameters are calculated): how to get the 3D pose of 4 square vertices relative to a single camera.
 
 The pinhole camera model describes the mathematical relationship between the coordinates of a point in three-dimensional space and its projection onto the image plane of an ideal pinhole camera, where the camera aperture is described as a point and no lenses are used to focus light.
 
-according to the fig(1),which shows a light ray that emits from an arbitrary point(A) on the 3D object and projection of that point(A') on the image plane, using pinhole camera model we can write the equations for every 4 vertices as shown in fig(2).
+According to the fig(1),which shows a light ray that emits from an arbitrary point(A) on the 3D object and projection of that point(A') on the image plane, using pinhole camera model we can write the equations for every 4 vertices as shown in fig(2).
 
-we sorted our vertices clockwise starting from top left and named them A-D as shown in fig(2).
+We sorted our vertices clockwise starting from top left and named them A-D as shown in fig(2).
 
 <p align="center">
     <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/pinhole_camera_model.jpg" style="max-width:100%;">
@@ -116,9 +133,9 @@ So the coordinates of points have been found in coordinate system {2},now using 
 <p align="center">
     fig(10)
 </p>
-** equation is from fig(1) for point "C".
+** Equation is from fig(1) for point "C".
 
-using * and ** equatinos, we have the equations shown in fig(11).
+Using * and ** equatinos, we have the equations shown in fig(11).
 <p align="center">
     <img width="100%" src="https://github.com/arashrahmani/camera-pose-estimation-using-aruco-marker/blob/master/images/fig11.jpg" style="max-width:100%;">
     </a>
@@ -142,21 +159,10 @@ And because we set the positive direction of the Z axis in front of the camera, 
 
 <a href="https://github.com/alirezakarimi92"><img src="https://avatars.githubusercontent.com/u/79650769?v=4" width="100;" alt="Alireza Karimi"/><br /><sub><b>.:: Alireza Karimi ::.</b></sub></a>
 
-solved by my dear friend Alireza Karimi (Mechatronics Research Laboratory)
+Solved by my dear friend Alireza Karimi (Mechatronics Research Laboratory)
 
-a good day in cafe Toosi : Alireza Karimi and Arash Rahmani 2019-11-08
-## 🛠 Prerequisites :
-1. **Calibrate your camera's intrinsic parameters** using any standard tool (e.g., MATLAB Camera Calibration Toolbox, OpenCV's `calib3d` module, etc.).
+A good day in cafe Toosi : Alireza Karimi and Arash Rahmani 2019-11-08
 
-2. **Edit `ArucoPosEstimation.cpp`** to insert your camera’s intrinsic parameters, as well as the `sx` and `sy` scaling factors. Brief explanations are provided in the code comments.
-
-3. **Set the ArUco marker's physical length (in meters)** by assigning it to the variable `a`.
-
-4. **Compile the project** using the provided Makefile by running the following command:
-
-    ```bash
-    make ArucoPosEstimation
-    ```    
 
 ## 🙏 Enjoyed this project?
 If this repository helped you or saved you time, please consider ⭐ starring it — it motivates us to keep improving it!
